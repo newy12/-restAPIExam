@@ -17,6 +17,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1")
 public class RestController {
 
+    @GetMapping(value = "test")
+    public String test(){
+        String name = "김영재";
+        return name;
+    }
+
     //덧셈 API
     @ApiOperation(value = "덧셈", notes = "덧셈 사칙연산")
     @GetMapping(value = "/add")
