@@ -1,21 +1,27 @@
 package com.restapi.restapi.controller;
 
 
-import com.restapi.restapi.entity.Message;
-import com.restapi.restapi.entity.StatusEnum;
+import com.restapi.restapi.entity.Gender;
+import com.restapi.restapi.entity.Member;
+import com.restapi.restapi.repository.MemberRepository;
+import com.restapi.restapi.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(tags = "영재의 스웨거 연습모드")
 @org.springframework.web.bind.annotation.RestController
+@RequiredArgsConstructor
 @RequestMapping("/v1")
 public class RestController {
+
+    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
     @GetMapping(value = "test")
     public String test(){
@@ -77,5 +83,19 @@ public class RestController {
         double res = num1 / num2;
 
         return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/memberAdd")
+    public List<Member> memberAdd(){
+        Member member = new Member();
+        member.setName("김영재");
+        member.setAge("27");
+        member.setGender(Gender.남);
+        memberRepository.save(member);
+        return memberRepository.findAll();
+    }
+    @GetMapping("/selectMember")
+    public List<Member> selectMember(){
+        return memberService.selectMember();
     }
 }
