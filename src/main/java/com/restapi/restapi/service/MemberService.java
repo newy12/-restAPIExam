@@ -15,7 +15,7 @@ public class MemberService {
 
     private final MemberMapper memberMapper;
 
-    public List<Member> selectMember() {
-        return memberMapper.selectMember();
+    public List<Member> selectMemberAndTeam() {
+        return memberMapper.selectMemberAndTeam();
     }
 }

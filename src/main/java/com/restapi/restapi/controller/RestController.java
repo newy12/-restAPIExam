@@ -3,7 +3,9 @@ package com.restapi.restapi.controller;
 
 import com.restapi.restapi.entity.Gender;
 import com.restapi.restapi.entity.Member;
+import com.restapi.restapi.entity.Team;
 import com.restapi.restapi.repository.MemberRepository;
+import com.restapi.restapi.repository.TeamRepository;
 import com.restapi.restapi.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Api(tags = "영재의 스웨거 연습모드")
 @org.springframework.web.bind.annotation.RestController
@@ -22,6 +25,7 @@ public class RestController {
 
     private final MemberRepository memberRepository;
     private final MemberService memberService;
+    private final TeamRepository teamRepository;
 
     @GetMapping(value = "test")
     public String test(){
@@ -85,17 +89,26 @@ public class RestController {
         return ResponseEntity.ok(res);
     }
 
-    @GetMapping("/memberAdd")
-    public List<Member> memberAdd(){
+    @PostMapping("/memberAdd")
+    public void memberAdd(){
+        Team team = new Team();
+        team.setTeamName("영재팀");
+        teamRepository.save(team);
         Member member = new Member();
         member.setName("김영재");
         member.setAge("27");
         member.setGender(Gender.남);
+        member.setTeam(team);
         memberRepository.save(member);
+    }
+
+    @GetMapping("/selectMemberInJPA")
+    public List<Member> selectMemberInJPA(){
         return memberRepository.findAll();
     }
-    @GetMapping("/selectMember")
-    public List<Member> selectMember(){
-        return memberService.selectMember();
+    //mybatis select
+    @GetMapping("/selectMemberInMybatis")
+    public List<Member> selectMemberAndTeamInMybatis(){
+        return memberService.selectMemberAndTeam();
     }
 }

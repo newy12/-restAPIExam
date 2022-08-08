@@ -7,5 +7,5 @@ import java.util.List;
 
 @Mapper
 public interface MemberMapper {
-    List<Member> selectMember();
+    List<Member> selectMemberAndTeam();
 }

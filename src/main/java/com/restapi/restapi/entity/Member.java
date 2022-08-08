@@ -1,5 +1,7 @@
 package com.restapi.restapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
 
@@ -18,4 +20,8 @@ public class Member {
     private String age;
     @Enumerated(EnumType.STRING)
     private Gender gender;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
+    @JoinColumn(name = "member_id")
+    private Team team;
 }
