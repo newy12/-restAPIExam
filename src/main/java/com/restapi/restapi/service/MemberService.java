@@ -30,6 +30,6 @@ public class MemberService {
                 .select(member)
                 .from(member)
                 .distinct()
-                .fetch();
+                .fetch();//
     }
 }
