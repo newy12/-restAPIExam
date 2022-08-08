@@ -20,8 +20,8 @@ public class Member {
     private String age;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = {"applications", "hibernateLazyInitializer"})
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "team_id")
     private Team team;
 }

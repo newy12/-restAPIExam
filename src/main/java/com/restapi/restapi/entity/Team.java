@@ -20,7 +20,7 @@ public class Team {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String teamName;
-    @OneToMany(mappedBy = "team",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "team")
     @JsonBackReference
     private List<Member> memberList = new ArrayList<>();
 

@@ -14,8 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @Api(tags = "영재의 스웨거 연습모드")
 @org.springframework.web.bind.annotation.RestController
@@ -110,5 +111,10 @@ public class RestController {
     @GetMapping("/selectMemberInMybatis")
     public List<Member> selectMemberAndTeamInMybatis(){
         return memberService.selectMemberAndTeam();
+    }
+    //querydsl select
+    @GetMapping("/selectMemberInQueryDSL")
+    public List<Member> selectMemberInQueryDSL(){
+        return memberService.getMemberInQueryDSL();
     }
 }

@@ -5,7 +5,7 @@
 
 <mapper namespace="com.restapi.restapi.mapper.MemberMapper">
 
-    <select id="selectMemberAndTeam" resultType="member">
-        select * from member m inner join team t on m.member = t.id;
+    <select id="selectMemberAndTeam" resultType="Map">
+        select * from member m inner join team t on m.team_id = t.id;
     </select>
 </mapper>
