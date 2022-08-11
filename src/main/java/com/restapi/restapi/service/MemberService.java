@@ -22,7 +22,7 @@ public class MemberService {
     public List<Member> selectMemberAndTeam() {
         return memberMapper.selectMemberAndTeam();
     }
-
+//dd
     public List<Member> getMemberInQueryDSL() {
         JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(em);
         QMember member = QMember.member;
