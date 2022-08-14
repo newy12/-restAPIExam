@@ -2,10 +2,11 @@ package com.restapi.restapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 import java.io.PrintStream;
 
-
+@EnableCaching
 @SpringBootApplication
 public class RestApiApplication {
 	public static void main(String[] args) {

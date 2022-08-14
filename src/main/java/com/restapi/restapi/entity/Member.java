@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.apache.ibatis.type.Alias;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 

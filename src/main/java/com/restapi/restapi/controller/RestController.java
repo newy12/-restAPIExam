@@ -4,6 +4,7 @@ package com.restapi.restapi.controller;
 import com.restapi.restapi.entity.Gender;
 import com.restapi.restapi.entity.Member;
 import com.restapi.restapi.entity.Team;
+import com.restapi.restapi.repository.MemberRedisRepository;
 import com.restapi.restapi.repository.MemberRepository;
 import com.restapi.restapi.repository.TeamRepository;
 import com.restapi.restapi.service.MemberService;
@@ -11,12 +12,14 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Api(tags = "영재의 스웨거 연습모드")
 @org.springframework.web.bind.annotation.RestController
@@ -27,6 +30,7 @@ public class RestController {
     private final MemberRepository memberRepository;
     private final MemberService memberService;
     private final TeamRepository teamRepository;
+    private final MemberRedisRepository memberRedisRepository;
 
     @GetMapping(value = "test")
     public String test(){
@@ -103,9 +107,10 @@ public class RestController {
         memberRepository.save(member);
     }
 
-    @GetMapping("/selectMemberInJPA")
-    public List<Member> selectMemberInJPA(){
-        return memberRepository.findAll();
+    @Cacheable(key = "#id",value = "findOne")
+    @GetMapping("/selectMemberInJPA/{id}")
+    public Optional<Member> selectMemberInJPA(@PathVariable(value = "id")Long id){
+        return memberRepository.findById(id);
     }
     //mybatis select
     @GetMapping("/selectMemberInMybatis")
@@ -116,5 +121,13 @@ public class RestController {
     @GetMapping("/selectMemberInQueryDSL")
     public List<Member> selectMemberInQueryDSL(){
         return memberService.getMemberInQueryDSL();
+    }
+    @PostMapping("/insertMemberInRedis")
+    public void addMemberInCache(){
+        Member member = new Member();
+        member.setAge("47");
+        member.setGender(Gender.여);
+        member.setName("박영순");
+        memberRedisRepository.save(member);
     }
 }

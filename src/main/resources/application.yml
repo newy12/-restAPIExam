@@ -1,5 +1,10 @@
 spring:
-#  jackson:
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+  #  jackson:
 #    serialization:
 #      fail-on-empty-beans: false
   mvc:
@@ -17,6 +22,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  main:
+    allow-bean-definition-overriding: true
 mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations: classpath:mapper/**/*.xml
