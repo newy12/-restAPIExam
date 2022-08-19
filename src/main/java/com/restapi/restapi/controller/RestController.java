@@ -109,7 +109,7 @@ public class RestController {
         memberRepository.save(member);
     }
 
-    //레디스 캐시 데이터 저장
+    //레디스 캐시 데이터 저장d
     @Cacheable(value = "youngjae")
     @GetMapping("/selectMemberInJPA")
     public List<Member> selectMemberInJPA(){
