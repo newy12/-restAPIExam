@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>게시판</h2>
+<table>
+    <tr th:each="boardList,index:${board}">
+        <td th:text="${boardList.title}"></td>
+        <td th:text="${boardList.content}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

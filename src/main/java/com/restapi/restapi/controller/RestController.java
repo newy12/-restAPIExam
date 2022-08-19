@@ -12,6 +12,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.cache.CacheKey;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -107,10 +109,11 @@ public class RestController {
         memberRepository.save(member);
     }
 
-    @Cacheable(key = "#id",value = "findOne")
-    @GetMapping("/selectMemberInJPA/{id}")
-    public Optional<Member> selectMemberInJPA(@PathVariable(value = "id")Long id){
-        return memberRepository.findById(id);
+    //레디스 캐시 데이터 저장
+    @Cacheable(value = "youngjae")
+    @GetMapping("/selectMemberInJPA")
+    public List<Member> selectMemberInJPA(){
+        return memberRepository.findAll();
     }
     //mybatis select
     @GetMapping("/selectMemberInMybatis")
@@ -129,5 +132,11 @@ public class RestController {
         member.setGender(Gender.여);
         member.setName("박영순");
         memberRedisRepository.save(member);
+    }
+    //레디스 캐시데이터 삭제
+    @CacheEvict(value = "youngjae")
+    @DeleteMapping("/deleteMemberDate")
+    public void deleteMemberDate(){
+        memberRepository.deleteAll();
     }
 }
